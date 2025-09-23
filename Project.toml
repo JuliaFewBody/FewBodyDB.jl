@@ -1,4 +1,4 @@
-name = "FewBodyDatabase"
+name = "FewBodyDB"
 uuid = "db38d531-b084-4210-bfec-cee5c3c1a709"
 authors = ["Shuhei Ohno", "Martin Mikkelsen"]
 version = "0.0.1"

@@ -71,6 +71,6 @@ jobs:
         shell: julia --project=docs --color=yes {0}
         run: |
           using Documenter: DocMeta, doctest
-          using FewBodyDatabase
-          DocMeta.setdocmeta!(FewBodyDatabase, :DocTestSetup, :(using FewBodyDatabase); recursive=true)
-          doctest(FewBodyDatabase)
+          using FewBodyDB
+          DocMeta.setdocmeta!(FewBodyDB, :DocTestSetup, :(using FewBodyDB); recursive=true)
+          doctest(FewBodyDB)

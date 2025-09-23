@@ -1,14 +1,14 @@
-using FewBodyDatabase
+using FewBodyDB
 using Documenter
 
-DocMeta.setdocmeta!(FewBodyDatabase, :DocTestSetup, :(using FewBodyDatabase); recursive=true)
+DocMeta.setdocmeta!(FewBodyDB, :DocTestSetup, :(using FewBodyDB); recursive=true)
 
 makedocs(;
-    modules=[FewBodyDatabase],
+    modules=[FewBodyDB],
     authors="Shuhei Ohno, Martin Mikkelsen",
-    sitename="FewBodyDatabase.jl",
+    sitename="FewBodyDB.jl",
     format=Documenter.HTML(;
-        canonical="https://JuliaFewBody.github.io/FewBodyDatabase.jl",
+        canonical="https://JuliaFewBody.github.io/FewBodyDB.jl",
         edit_link="main",
         assets=String[],
     ),
@@ -18,6 +18,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/JuliaFewBody/FewBodyDatabase.jl",
+    repo="github.com/JuliaFewBody/FewBodyDB.jl",
     devbranch="main",
 )

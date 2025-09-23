@@ -1,6 +1,6 @@
-using FewBodyDatabase
+using FewBodyDB
 using Test
 
-@testset "FewBodyDatabase.jl" begin
+@testset "FewBodyDB.jl" begin
     # Write your tests here.
 end

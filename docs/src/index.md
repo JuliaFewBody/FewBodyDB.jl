@@ -1,14 +1,14 @@
 ```@meta
-CurrentModule = FewBodyDatabase
+CurrentModule = FewBodyDB
 ```
 
-# FewBodyDatabase
+# FewBodyDB.jl
 
-Documentation for [FewBodyDatabase](https://github.com/JuliaFewBody/FewBodyDatabase.jl).
+Documentation for [FewBodyDB](https://github.com/JuliaFewBody/FewBodyDB.jl).
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [FewBodyDatabase]
+Modules = [FewBodyDB]
 ```

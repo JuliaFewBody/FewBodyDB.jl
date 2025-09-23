@@ -1,4 +1,4 @@
-module FewBodyDatabase
+module FewBodyDB
 
 # Write your package code here.
 
