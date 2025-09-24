@@ -13,6 +13,7 @@ The `@get` macro returns the bibliographic value corresponding to the given key.
 ```@repl
 using FewBodyDB
 @get Bubin2005Jan, HD⁺, energy, (J=0, v=0)
+println(@bib Bubin2005Jan)
 ```
 
 ## Data
@@ -20,19 +21,26 @@ using FewBodyDB
 ```@eval
 using FewBodyDB
 using Markdown
-Markdown.parse(string("| command | value |\n| :------ | :---- |\n", [string("| `@get ", replace(k, "/" => ", "), "` | `\"", @get(k), "\"` |\n") for k in @keys]...))
+Markdown.parse(string("| command | value |\n| :------ | :---- |\n", [string("| `@get ", replace(k, "/" => ", "), "` | `\"", @get(k), "\"` |\n") for k in FewBodyDB.@keys]...))
+```
+
+## Bibliography
+
+The database references are here.
+
+```@example
+using FewBodyDB # hide
+for k in keys(FewBodyDB.REFS) # hide
+  println(@bib k) # hide
+end # hide
 ```
 
 ## Citation
 
-Please cite this package, the original paper
+Please use [CITATION.bib](https://github.com/JuliaFewBody/FewBodyDB.jl/blob/main/CITATION.bib) if you need to cite this package.
 
 ```@example
 file = open("../../CITATION.bib", "r") # hide
-text = Base.read(file, String) # hide
-close(file) # hide
-println(text) # hide
-file = open("../../src/refs.bib", "r") # hide
 text = Base.read(file, String) # hide
 close(file) # hide
 println(text) # hide

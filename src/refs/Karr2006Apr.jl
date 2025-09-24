@@ -1,3 +1,20 @@
+@ref Karr2006Apr, """
+@article{Karr2006Apr,
+  title = {High accuracy results for the energy levels of the molecular ions H+2,  D+2and HD+,  up toJ= 2},
+  volume = {39},
+  ISSN = {1361-6455},
+  url = {http://dx.doi.org/10.1088/0953-4075/39/8/024},
+  DOI = {10.1088/0953-4075/39/8/024},
+  number = {8},
+  journal = {Journal of Physics B: Atomic,  Molecular and Optical Physics},
+  publisher = {IOP Publishing},
+  author = {Karr,  J Ph and Hilico,  L},
+  year = {2006},
+  month = apr,
+  pages = {2095–2105}
+}
+"""
+
 @put Karr2006Apr, HD⁺, energy, (J=0, v=0) , -0.59789796860903
 @put Karr2006Apr, HD⁺, energy, (J=0, v=1) , -0.58918182955696
 @put Karr2006Apr, HD⁺, energy, (J=0, v=2) , -0.58090370021837

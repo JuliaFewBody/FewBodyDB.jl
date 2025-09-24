@@ -1,31 +1,20 @@
 module FewBodyDB
 
 # import / export
-import JLD2, Bibliography
-export @put, @get, @bib, @keys
+export @get, @bib
 
-# set path
-const PATH_DATA = joinpath(@__DIR__, "data.jld2")
-const PATH_REFS = joinpath(@__DIR__, "refs.bib")
+# set dictionary
+REFS = Dict{String,String}()
+DATA = Dict{String,String}()
 
-# put new data
-"""
-!!! note
-    For development use only.
-Insert new data into the database.
-```julia
-julia> @put Bubin2005Jan, HD⁺, energy, (J=0, v=0), -0.5978979685 
-```
-"""
+# put new data (for development use only)
 macro put(expr)
-  JLD2.jldopen(PATH_DATA, "a+") do file
-    file[join(string.(expr.args[begin:end-1]), "/")] = string(expr.args[end])
-  end
+  DATA[join(string.(expr.args[begin:end-1]), "/")] = string(expr.args[end])
 end
 
 # get data
 """
-Select data from the database.
+Get data from `FewBodyDB.DATA`.
 ```repl
 julia> @get Bubin2005Jan, HD⁺, energy, (J=0, v=0)
 "-0.5978979685"
@@ -51,66 +40,66 @@ macro get(expr)
 end
 
 function get(key)
-  JLD2.jldopen(PATH_DATA, "r") do file
-    return file[key]
-  end
+  return DATA[key]
 end
 
-# bibliography
+# put new bibliography (for development use only)
+macro ref(expr)
+  REFS[string(expr.args[begin])] = string(expr.args[end])
+end
+
+# get BibTeX entry
 """
-Get bibliographic information for a given key.
+Get BibTeX entry from `FewBodyDB.DATA`.
 ```julia
-julia> @bib Bubin2005Jan
+julia> println(@bib Bubin2005Jan)
+@article{Bubin2005Jan,
+  title = {Charge asymmetry in HD+},
+  volume = {122},
+  ISSN = {1089-7690},
+  url = {http://dx.doi.org/10.1063/1.1850905},
+  DOI = {10.1063/1.1850905},
+  number = {4},
+  journal = {The Journal of Chemical Physics},
+  publisher = {AIP Publishing},
+  author = {Bubin,  Sergiy and Bednarz,  Eugeniusz and Adamowicz,  Ludwik},
+  year = {2005},
+  month = jan 
+}
 ```
 """
 macro bib(expr)
   if expr isa String
+    # @bib "Bubin2005Jan"
     return :( FewBodyDB.bib($expr) )
-  elseif expr isa Symbol && isdefined(Main, expr)
+  elseif expr isa Expr && expr.head == :string
+    # s = Bubin2005Jan; @bib "$s"
     return :( FewBodyDB.bib(string($(esc(expr)))) )
+  elseif expr isa Symbol
+    try
+      # @bib Bubin2005Jan
+      return FewBodyDB.bib(string(expr))
+    catch
+      # k = "Bubin2005Jan"; @bib k
+      return :( FewBodyDB.bib(string($(esc(expr)))) )
+    end
   else
-    return FewBodyDB.bib(string(expr))
+    # others
+    return :( FewBodyDB.bib(string($(esc(expr)))) )
   end
 end
 
 function bib(key)
-  imported_bib = Bibliography.import_bibtex(PATH_REFS)
-  bib = Bibliography.select(imported_bib, [key])[key]
-  return Bibliography.export_bibtex(bib)
+  return REFS[key]
 end
 
 # list keys
-"""
-List all keys in the database.
-```julia
-julia> @keys
-71-element Vector{String}:
- "Karr2006Apr/HD⁺/energy/(J = 2, v = 17)"
- "Karr2006Apr/HD⁺/energy/(J = 0, v = 10)"
- "Karr2006Apr/HD⁺/energy/(J = 1, v = 8)"
- "Karr2006Apr/HD⁺/energy/(J = 0, v = 3)"
- "Karr2006Apr/HD⁺/energy/(J = 1, v = 10)"
- "Karr2006Apr/HD⁺/energy/(J = 0, v = 17)"
- "Karr2006Apr/HD⁺/energy/(J = 0, v = 9)"
- "Karr2006Apr/HD⁺/energy/(J = 2, v = 6)"
- "Karr2006Apr/HD⁺/energy/(J = 2, v = 14)"
- "Karr2006Apr/HD⁺/energy/(J = 1, v = 11)"
- "Karr2006Apr/HD⁺/energy/(J = 0, v = 2)"
- "Karr2006Apr/HD⁺/energy/(J = 0, v = 20)"
- "Karr2006Apr/HD⁺/energy/(J = 2, v = 18)"
- ⋮
-```
-"""
 macro keys()
-  return collect(Base.keys(JLD2.load(PATH_DATA)))
+  return collect(Base.keys(DATA))
 end
 
-# update database
-function 
-  JLD2.jldopen(PATH_DATA, "w+") do file
-  end
-  include("refs/Bubin2005Jan.jl")
-  include("refs/Karr2006Apr.jl")
-end
+# update bibliography & database
+include("refs/Bubin2005Jan.jl")
+include("refs/Karr2006Apr.jl")
 
 end

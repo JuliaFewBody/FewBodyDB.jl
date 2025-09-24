@@ -4,11 +4,14 @@ using Test
 @testset "FewBodyDB.jl" begin
 
     # @put
-    @put Ohno2025Sep, H, energy, (n=1, l=0, m=0), -0.5
+    FewBodyDB.@put Ohno2025Sep, H, energy, (n=1, l=0, m=0), -0.5
     @test "-0.5" == (@get Ohno2025Sep, H, energy, (n=1, l=0, m=0))
 
     # @bib
+    @test "@article{Bubin2005Jan" == (@bib Bubin2005Jan)[1:21]
     @test "@article{Bubin2005Jan" == (@bib "Bubin2005Jan")[1:21]
+    # @test "@article{Bubin2005Jan" == (k = "Bubin2005Jan"; @bib k)[1:21]
+    @test "@article{Bubin2005Jan" == (k = "Bubin2005Jan"; @bib "$k")[1:21]
     @test "@article{Bubin2005Jan" == FewBodyDB.bib("Bubin2005Jan")[1:21]
 
     # @get
