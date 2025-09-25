@@ -101,5 +101,5 @@ end
 # update bibliography & database
 include("refs/Bubin2005Jan.jl")
 include("refs/Karr2006Apr.jl")
-
+include("refs/Suzuki2003Jul.jl")
 end
