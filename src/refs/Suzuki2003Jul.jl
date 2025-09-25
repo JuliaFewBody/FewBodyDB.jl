@@ -18,3 +18,7 @@
 @put Suzuki2003Jul, ttμ, energy, "¹Sᵉ", -112.9730179
 @put Suzuki2003Jul, ttμ, energy, "¹Pᵒ", -110.2621165
 @put Suzuki2003Jul, tdμ, energy, "¹Sᵉ", -111.364511474
+@put Suzuki2003Jul, tdμ, energy, "¹Pᵒ", -108.179385
+@put Suzuki2003Jul, ∞He, energy, "¹Sᵉ", -2.903724376984 
+@put Suzuki2003Jul, He, energy, "¹Sᵉ", -2.903724372437   
+@put Suzuki2003Jul, ∞Li, energy, "¹Sᵉ", -7.279913   

@@ -42,7 +42,12 @@ using Test
 
     @test "-112.9730179" == @get Suzuki2003Jul, ttμ, energy, "¹Sᵉ"
     @test "-110.2621165" == @get Suzuki2003Jul, ttμ, energy, "¹Pᵒ"
-    @test "-111.364511474" == @get Suzuki2003Jul, tdμ, energy, "¹Sᵉ"
 
+    @test "-111.364511474" == @get Suzuki2003Jul, tdμ, energy, "¹Sᵉ"
+    @test "-108.179385" == @get Suzuki2003Jul, tdμ, energy, "¹Pᵒ"
+
+    @test "-2.903724376984" == @get Suzuki2003Jul, ∞He, energy, "¹Sᵉ"
+    @test "-2.903724372437" == @get Suzuki2003Jul, He, energy, "¹Sᵉ"
+    @test "-7.279913" == @get Suzuki2003Jul, ∞Li, energy, "¹Sᵉ"
 
 end
