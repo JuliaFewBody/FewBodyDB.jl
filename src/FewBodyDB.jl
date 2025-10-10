@@ -1,11 +1,12 @@
 module FewBodyDB
 
 # import / export
+import OrderedCollections: OrderedDict
 export @get, @bib
 
 # set dictionary
-REFS = Dict{String, String}()
-DATA = Dict{String, String}()
+REFS = OrderedDict{String, String}()
+DATA = OrderedDict{String, String}()
 
 # put new data (for development use only)
 macro put(expr)

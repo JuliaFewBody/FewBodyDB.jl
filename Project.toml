@@ -1,9 +1,11 @@
 name = "FewBodyDB"
 uuid = "db38d531-b084-4210-bfec-cee5c3c1a709"
-version = "0.0.3"
+version = "0.0.4"
 authors = ["Shuhei Ohno", "Martin Mikkelsen"]
 
 [deps]
+OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
 
 [compat]
+OrderedCollections = "1.8.1"
 julia = "1.11"
