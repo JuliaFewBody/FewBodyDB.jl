@@ -9,6 +9,16 @@
 
 See https://juliafewbody.github.io/FewBodyDB.jl.
 
+## Usage
+
+```julia
+using FewBodyDB
+
+entry = db(:Bubin2005Jan, Symbol("HD⁺"), :energy, (J = 0, v = 0))
+entry.value # -0.5978979685
+bib(entry)  # BibTeX source
+```
+
 ## Citation
 
 See [`CITATION.bib`](CITATION.bib) for the relevant reference(s).

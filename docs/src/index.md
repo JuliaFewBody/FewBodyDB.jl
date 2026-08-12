@@ -4,46 +4,66 @@ CurrentModule = FewBodyDB
 
 # FewBodyDB.jl
 
-This package is a database of calculation results for few-body systems. It was developed for testing solvers in [JuliaFewBody](https://github.com/JuliaFewBody) projects.
+FewBodyDB is a database of reference results for few-body systems. It is
+intended for validating numerical solvers in
+[JuliaFewBody](https://github.com/JuliaFewBody) projects.
 
 ## Usage
 
-The `@get` macro returns the bibliographic value corresponding to the given key.
+[`db`](@ref) returns a typed [`DatabaseEntry`](@ref), including the result's
+provenance and state metadata.
 
 ```@repl
 using FewBodyDB
-@get Bubin2005Jan, HD⁺, energy, (J=0, v=0)
-println(@bib Bubin2005Jan)
+entry = db(:Bubin2005Jan, Symbol("HD⁺"), :energy, (J = 0, v = 0))
+entry.value
+entry.state
+println(bib(entry))
 ```
+
+A slash-separated key returned by [`dbkeys`](@ref) can also be used directly:
+
+```@repl
+using FewBodyDB
+db("Bubin2005Jan/HD⁺/energy/(J = 0, v = 0)").value
+```
+
+The old `@get` and `@bib` macros remain available as compatibility wrappers,
+but function calls are preferred for new code.
 
 ## Data
 
 ```@eval
 using FewBodyDB
 using Markdown
-Markdown.parse(string("| command | value |\n| :------ | :---- |\n", [string("| `@get ", replace(k, "/" => ", "), "` | `\"", @get(k), "\"` |\n") for k in FewBodyDB.@keys]...))
+rows = map(dbkeys()) do key
+    entry = db(key)
+    "| `$(key)` | `$(entry.value)` | `$(entry.reference)` |\n"
+end
+Markdown.parse(
+    "| key | value | reference |\n" *
+    "| :-- | --: | :-- |\n" *
+    join(rows),
+)
 ```
 
 ## Bibliography
 
-The database references are here.
-
 ```@example
 using FewBodyDB # hide
-for k in keys(FewBodyDB.REFS) # hide
-  println(@bib k) # hide
+references = sort!(unique([db(key).reference for key in dbkeys()]); by = string) # hide
+for key in references # hide
+    println(bib(key)) # hide
 end # hide
 ```
 
 ## Citation
 
-Please use [CITATION.bib](https://github.com/JuliaFewBody/FewBodyDB.jl/blob/main/CITATION.bib) if you need to cite this package.
+Please use [CITATION.bib](https://github.com/JuliaFewBody/FewBodyDB.jl/blob/main/CITATION.bib)
+if you need to cite this package.
 
 ```@example
-file = open("../../CITATION.bib", "r") # hide
-text = Base.read(file, String) # hide
-close(file) # hide
-println(text) # hide
+println(read("../../CITATION.bib", String))
 ```
 
 ## API reference
